@@ -8,6 +8,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="İngilis">
 <meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <title>İngilis Dili</title>
 <style>
 :root{
@@ -283,6 +286,9 @@ textarea{width:100%;height:110px;background:var(--ink-2);color:var(--fg);border:
 .mtd p{margin:0 0 8px;font-size:14px;line-height:1.6}
 .mtd p:last-child{margin:0}
 .mtd em{font-style:normal;color:var(--amber)}
+#off{display:none;background:var(--amber);color:#1a1206;text-align:center;
+  font-size:12px;font-weight:600;padding:5px}
+#off.on{display:block}
 .toast{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 62px);background:var(--ink-3);
   border:1px solid var(--teal-deep);color:var(--fg);padding:11px 20px;border-radius:24px;
   font-size:14px;z-index:99;animation:slideIn .25s ease both;box-shadow:0 8px 24px rgba(0,0,0,.5)}
@@ -296,6 +302,7 @@ textarea{width:100%;height:110px;background:var(--ink-2);color:var(--fg);border:
 </head>
 <body>
 <div id="bar"><button id="back">‹ Geri</button><h1 id="title"></h1><span id="count"></span></div>
+<div id="off">İnternet yoxdur — yaddaşdan işləyir</div>
 <div id="prog"><i id="progi"></i></div>
 <div id="main"></div>
 <div id="foot"><div id="footin"></div></div>
@@ -2748,11 +2755,29 @@ function scrMe(){
       <button class="btn" onclick="methodScreen()"><u><s>💡</s>Metodika</u><i></i></button>
     </div>
 
+    <div class="sect">Oflayn</div>
+    <p class="note l" id="offinfo">Yoxlanılır...</p>
+
     <div class="sect">Ehtiyat nüsxə</div>
     <p class="note l">Brauzer yaddaşı silinsə proqres itir. Aşağıdakı mətni kopyalayıb özünə göndər.</p>
     <textarea readonly onclick="this.select()">${esc(JSON.stringify(S))}</textarea>
     <button class="btn sm" style="margin-top:9px" onclick="restore()">Ehtiyat nüsxədən bərpa et</button>
     <div style="height:14px"></div>`, null, true);
+  offInfo();
+}
+function offInfo(){
+  const el = $("offinfo");
+  if (!el) return;
+  if (!("serviceWorker" in navigator) || !location.protocol.startsWith("http")){
+    el.textContent = "Oflayn rejim yalnız veb ünvanından açılanda işləyir.";
+    return;
+  }
+  navigator.serviceWorker.getRegistration().then(r => {
+    el.innerHTML = r
+      ? "Tətbiq telefonun yaddaşına yazılıb — internet olmadan da açılacaq. "+
+        "Yeni versiya internet olanda avtomatik yüklənir."
+      : "Yaddaşa yazılır... Səhifəni bir dəfə yeniləyib bura qayıt.";
+  }).catch(()=>{ el.textContent = "Oflayn rejim əlçatan deyil."; });
 }
 function setGoal(){
   const v = parseInt(prompt("Gündəlik XP hədəfi (20-300):", cfg("goal")),10);
@@ -2874,11 +2899,28 @@ function done(big, sub, xp, ret){
 }
 
 /* ==================================================================
+   OFFLINE / SERVICE WORKER
+   ================================================================== */
+function netFlag(){
+  const el = $("off");
+  if (el) el.className = navigator.onLine ? "" : "on";
+}
+window.addEventListener("online",  () => { netFlag(); toast("İnternet qayıtdı"); });
+window.addEventListener("offline", () => { netFlag(); toast("Oflayn rejim"); });
+
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  });
+}
+
+/* ==================================================================
    BASLAT
    ================================================================== */
 document.addEventListener("gesturestart", e=>e.preventDefault());
 document.addEventListener("visibilitychange", ()=>{ if(document.hidden){ stopAudio(); mStop(); } });
 touchDay(); save(); checkAch();
+netFlag();
 drawTabs();
 scrToday();
 
