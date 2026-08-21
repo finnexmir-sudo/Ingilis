@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; media-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-src 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b111b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -10,6 +12,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="shortcut icon" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <title>İngilis Dili</title>
 <style>
@@ -1769,12 +1772,69 @@ const KEY = "ingilis_v2";
 let mem = null;
 const DEF = {p:{}, cfg:{dn:20, dr:60, ss:20, snd:1, goal:60}, log:[], xp:0,
              read:[], dlg:[], shd:[], ach:[], day:{d:"", xp:0}};
+/* Xaricden gelen her deyeri tipine ve hedduna gore temizleyir.
+   Beleliklə "berpa et" xanasina yapisdirilan zererli metn ise yaramir. */
+function num(v, lo, hi, def){
+  const n = parseInt(v, 10);
+  return (Number.isFinite(n) && n >= lo && n <= hi) ? n : def;
+}
+function intArr(v, max){
+  if (!Array.isArray(v)) return [];
+  return v.map(x => parseInt(x, 10)).filter(x => Number.isFinite(x) && x >= 0 && x < max).slice(0, 5000);
+}
+function dateArr(v){
+  if (!Array.isArray(v)) return [];
+  return v.filter(x => typeof x === "string" && /^\d{4}-\d{2}-\d{2}$/.test(x)).slice(0, 4000);
+}
+function sanitize(m){
+  const o = {};
+  const c = (m && typeof m.cfg === "object" && m.cfg) ? m.cfg : {};
+  o.cfg = {
+    dn:   num(c.dn,   5,  100, 20),
+    dr:   num(c.dr,   5,  500, 60),
+    ss:   num(c.ss,   5,  100, 20),
+    goal: num(c.goal, 20, 300, 60),
+    snd:  c.snd ? 1 : 0
+  };
+  o.xp  = num(m && m.xp, 0, 99999999, 0);
+  o.log = dateArr(m && m.log);
+  o.read = intArr(m && m.read, 999);
+  o.dlg  = intArr(m && m.dlg,  999);
+  o.shd  = intArr(m && m.shd,  999);
+  o.ach  = Array.isArray(m && m.ach)
+    ? m.ach.filter(x => typeof x === "string" && /^[a-z0-9]{1,10}$/.test(x)).slice(0, 100) : [];
+  const d = (m && typeof m.day === "object" && m.day) ? m.day : {};
+  o.day = { d: (typeof d.d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d.d)) ? d.d : "",
+            xp: num(d.xp, 0, 999999, 0) };
+  o.p = {};
+  const p = (m && typeof m.p === "object" && m.p) ? m.p : {};
+  const ST = ["new","learning","review","mastered"];
+  let cnt = 0;
+  for (const k in p){
+    if (++cnt > 20000) break;
+    const id = parseInt(k, 10);
+    if (!Number.isFinite(id) || id < 0 || id >= 20000) continue;
+    const w = p[k];
+    if (!w || typeof w !== "object") continue;
+    const e = parseFloat(w.e);
+    o.p[id] = {
+      s: ST.indexOf(w.s) >= 0 ? w.s : "new",
+      r: num(w.r, 0, 9999, 0),
+      e: (Number.isFinite(e) && e >= 1.3 && e <= 5) ? Math.round(e*1000)/1000 : 2.5,
+      i: num(w.i, 0, 365, 0),
+      d: (typeof w.d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(w.d)) ? w.d : null,
+      ok: num(w.ok, 0, 99999, 0),
+      bad: num(w.bad, 0, 99999, 0)
+    };
+  }
+  return o;
+}
 function load(){
   let raw = null;
   try{ raw = localStorage.getItem(KEY) || localStorage.getItem("ingilis_v1"); }catch(e){}
-  try{ mem = raw ? JSON.parse(raw) : {}; }catch(e){ mem = {}; }
-  for (const k in DEF) if (mem[k] === undefined) mem[k] = JSON.parse(JSON.stringify(DEF[k]));
-  for (const k in DEF.cfg) if (mem.cfg[k] === undefined) mem.cfg[k] = DEF.cfg[k];
+  let parsed = {};
+  try{ parsed = raw ? JSON.parse(raw) : {}; }catch(e){ parsed = {}; }
+  mem = sanitize(parsed);
   return mem;
 }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(mem)); }catch(e){} }
@@ -2794,9 +2854,11 @@ function restore(){
   const t = prompt("Saxladığın mətni bura yapışdır:");
   if (!t) return;
   try{
+    if (t.length > 3000000) throw 0;
     const o = JSON.parse(t);
-    if (!o.p) throw 0;
-    mem = o; load(); save();
+    if (!o || typeof o !== "object" || !o.p) throw 0;
+    mem = sanitize(o);
+    save();
     alert("Bərpa olundu."); goTab("today");
   }catch(e){ alert("Mətn düzgün deyil."); }
 }
