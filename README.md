@@ -17,3 +17,7 @@ Quraşdırma tələb olunmur, internetsiz işləyir.
 
 Linki Chrome-da aç → menyu (⋮) → **Ana ekrana əlavə et**.
 Proqres öz cihazında saxlanılır, heç yerə göndərilmir.
+---
+
+Hazırlayan: Samir
+Təklif və qeydlər üçün: [Issues](https://github.com/finnexmir-sudo/Ingilis/issues)
