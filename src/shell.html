@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; media-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-src 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0b111b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="İngilis">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="shortcut icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<title>İngilis Dili</title>
+<style>
+:root{
+  --ink:#0b111b; --ink-2:#131c29; --ink-3:#1d2836; --line:#28354a;
+  --paper:#f7f4ec; --paper-2:#e9e4d6;
+  --on-paper:#16202b; --on-paper-soft:#5b6474;
+  --fg:#e6ebf3; --fg-soft:#828fa4;
+  --teal:#31b0c0; --teal-deep:#0d6f7c; --teal-glow:rgba(49,176,192,.16);
+  --amber:#dd9130; --moss:#4fb86e; --rose:#e8556a; --violet:#9b7bff;
+  --r:16px;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --serif:Georgia,"Noto Serif","Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono","Roboto Mono","DejaVu Sans Mono",monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%}
+body{
+  height:100%;margin:0;background:var(--ink);color:var(--fg);font-family:var(--sans);
+  display:flex;flex-direction:column;overscroll-behavior:none;
+  -webkit-user-select:none;user-select:none;
+}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit;font-size:inherit}
+
+/* ---------- ust panel ---------- */
+#bar{display:flex;align-items:center;gap:10px;flex:0 0 auto;
+  padding:calc(env(safe-area-inset-top) + 11px) 14px 11px;
+  background:var(--ink-2);border-bottom:1px solid var(--line)}
+#back{font-size:15px;color:var(--fg-soft);padding:7px 9px;border-radius:9px;display:none}
+#back:active{background:var(--ink-3)}
+#bar h1{font-size:14px;font-weight:600;margin:0;letter-spacing:.02em;color:var(--fg-soft)}
+#count{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--fg-soft)}
+#prog{flex:0 0 auto;height:3px;background:var(--ink-3)}
+#prog>i{display:block;height:100%;width:0;background:var(--teal);transition:width .3s ease}
+
+/* ---------- govde ---------- */
+#main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 16px 26px;
+  position:relative}
+.wrap{min-height:100%;display:flex;flex-direction:column;justify-content:center}
+.wrap.top{justify-content:flex-start}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.anim{animation:slideIn .22s ease both}
+
+/* ---------- alt panel ---------- */
+#foot{flex:0 0 auto;padding:12px 16px calc(env(safe-area-inset-bottom) + 13px);
+  background:var(--ink-2);border-top:1px solid var(--line);display:none}
+#tabs{flex:0 0 auto;display:flex;background:var(--ink-2);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom)}
+#tabs button{flex:1;padding:9px 2px 8px;display:flex;flex-direction:column;align-items:center;
+  gap:3px;color:var(--fg-soft);font-size:10px;letter-spacing:.01em}
+#tabs button s{font-size:20px;line-height:1;text-decoration:none;filter:grayscale(1) opacity(.6)}
+#tabs button.on{color:var(--teal)}
+#tabs button.on s{filter:none}
+#tabs button:active{background:var(--ink-3)}
+
+/* ---------- kagiz kart ---------- */
+.card{background:var(--paper);color:var(--on-paper);border-radius:var(--r);
+  padding:30px 22px;text-align:center;
+  box-shadow:0 1px 0 var(--paper-2) inset,0 12px 34px rgba(0,0,0,.45)}
+.hw{font-family:var(--serif);font-size:38px;font-weight:700;line-height:1.15;
+  letter-spacing:-.01em;word-break:break-word}
+.hw.sm{font-size:26px}
+.tel{font-family:var(--mono);font-size:16px;color:var(--teal-deep);margin-top:8px}
+.tel::before{content:"[ "}.tel::after{content:" ]"}
+.pos{font-size:11px;color:var(--on-paper-soft);margin-top:9px;letter-spacing:.14em;text-transform:uppercase}
+.rule{height:1px;background:var(--paper-2);margin:18px -22px}
+.az{font-size:22px;font-weight:600;color:var(--amber);line-height:1.35;word-break:break-word}
+.ex{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--on-paper-soft);
+  margin-top:14px;line-height:1.5}
+.spk{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+  border-radius:50%;margin-top:15px;background:var(--paper-2);color:var(--teal-deep);font-size:18px}
+.spk:active{transform:scale(.9)}
+
+/* ---------- duymeler ---------- */
+.btn{display:block;width:100%;padding:16px;border-radius:13px;background:var(--ink-3);
+  color:var(--fg);font-size:16px;font-weight:600;text-align:center;border:1px solid var(--line)}
+.btn:active{transform:scale(.985);background:var(--line)}
+.btn.go{background:var(--teal-deep);border-color:var(--teal-deep);color:#fff}
+.btn.ghost{background:transparent}
+.btn.sm{padding:12px;font-size:13px;font-weight:500;color:var(--fg-soft)}
+.row{display:flex;gap:9px}
+.row>*{flex:1}
+.menu{display:grid;gap:9px}
+.menu .btn{text-align:left;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.menu .btn u{text-decoration:none;display:flex;align-items:center;gap:11px}
+.menu .btn s{text-decoration:none;font-size:19px}
+.menu .btn i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--fg-soft)}
+.opt{display:flex;align-items:center;gap:12px;width:100%;padding:15px 16px;border-radius:12px;
+  background:var(--ink-2);border:1px solid var(--line);color:var(--fg);font-size:16px;
+  margin-bottom:9px;line-height:1.35}
+.opt b{font-family:var(--mono);font-size:12px;color:var(--fg-soft);flex:0 0 auto}
+.opt span{flex:1;text-align:left}
+.opt:active{background:var(--ink-3)}
+.opt.ok{border-color:var(--moss);background:rgba(79,184,110,.15)}
+.opt.no{border-color:var(--rose);background:rgba(232,85,106,.15)}
+.grades{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.grades .btn{padding:15px 8px;font-size:15px}
+.g0{color:var(--rose)}.g3{color:var(--amber)}.g4{color:var(--teal)}.g5{color:var(--moss)}
+input[type=text]{width:100%;padding:16px;border-radius:12px;background:var(--ink-2);
+  border:1px solid var(--line);color:var(--fg);font-size:19px;text-align:center;
+  font-family:var(--serif);outline:none}
+input[type=text]:focus{border-color:var(--teal)}
+
+/* ---------- bu gun: halqa ---------- */
+.ring{position:relative;width:190px;height:190px;margin:4px auto 6px}
+.ring svg{transform:rotate(-90deg)}
+.ring .bg{stroke:var(--ink-3)}
+.ring .fg{stroke:var(--teal);stroke-linecap:round;transition:stroke-dashoffset .7s ease}
+.ring .in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:1px}
+.ring .in b{font-family:var(--mono);font-size:40px;font-weight:700;letter-spacing:-.02em}
+.ring .in s{text-decoration:none;font-size:11px;color:var(--fg-soft);letter-spacing:.12em;
+  text-transform:uppercase}
+.ring.done .fg{stroke:var(--moss)}
+.ring.done .in b{color:var(--moss)}
+.lvbar{display:flex;align-items:center;gap:10px;margin:14px 0 0}
+.lvbar span{font-family:var(--mono);font-size:11px;color:var(--fg-soft);flex:0 0 auto}
+.lvbar div{flex:1;height:6px;background:var(--ink-3);border-radius:3px;overflow:hidden}
+.lvbar div i{display:block;height:100%;background:var(--violet);border-radius:3px;transition:width .5s}
+.streak{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;
+  font-size:14px;color:var(--fg-soft)}
+.streak b{font-family:var(--mono);font-size:19px;color:var(--amber)}
+
+/* ---------- kicik plitkeler ---------- */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.tile{background:var(--ink-2);border:1px solid var(--line);border-radius:13px;padding:13px 5px;
+  text-align:center}
+.tile b{display:block;font-family:var(--mono);font-size:20px;font-weight:700}
+.tile s{display:block;font-size:10px;color:var(--fg-soft);text-decoration:none;margin-top:3px}
+
+/* ---------- bolme basligi ---------- */
+.sect{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-soft);
+  margin:24px 0 11px}
+.sect:first-child{margin-top:4px}
+
+/* ---------- dialoq ---------- */
+.dl{display:flex;flex-direction:column;gap:9px}
+.line{max-width:88%;padding:12px 14px;border-radius:15px;line-height:1.4}
+.line.a{align-self:flex-start;background:var(--ink-2);border:1px solid var(--line);
+  border-bottom-left-radius:5px}
+.line.b{align-self:flex-end;background:var(--teal-glow);border:1px solid var(--teal-deep);
+  border-bottom-right-radius:5px}
+.line b{display:block;font-family:var(--serif);font-size:16px;font-weight:600}
+.line i{display:block;font-style:normal;font-size:13px;color:var(--fg-soft);margin-top:4px}
+.line.hi{box-shadow:0 0 0 2px var(--teal)}
+.line.mute i{display:none}
+.who{font-family:var(--mono);font-size:9px;color:var(--fg-soft);letter-spacing:.1em;
+  margin-bottom:3px;text-transform:uppercase}
+
+/* ---------- kolge / audio ---------- */
+.sh{background:var(--paper);color:var(--on-paper);border-radius:var(--r);padding:26px 20px;
+  text-align:center;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.sh b{display:block;font-family:var(--serif);font-size:23px;line-height:1.35;font-weight:700}
+.sh i{display:block;font-style:normal;font-size:14px;color:var(--on-paper-soft);
+  margin-top:12px;line-height:1.45}
+.spd{display:flex;gap:7px;margin:14px 0 0}
+.spd button{flex:1;padding:11px 4px;border-radius:10px;background:var(--ink-2);
+  border:1px solid var(--line);color:var(--fg-soft);font-size:13px}
+.spd button.on{background:var(--teal-deep);border-color:var(--teal-deep);color:#fff;font-weight:600}
+.play{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px;
+  border-radius:13px;background:var(--teal-deep);color:#fff;font-size:17px;font-weight:700;margin-top:14px}
+.play:active{transform:scale(.985)}
+.play.pulse{animation:pulse 1.1s ease infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--teal-glow)}50%{box-shadow:0 0 0 12px transparent}}
+.reps{font-family:var(--mono);font-size:12px;color:var(--fg-soft);text-align:center;margin-top:11px}
+.dots{display:flex;gap:5px;justify-content:center;margin-top:10px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--ink-3)}
+.dots i.on{background:var(--teal)}
+.sh.long b{font-size:19px;line-height:1.5}
+.tmr{font-family:var(--mono);font-size:52px;font-weight:700;text-align:center;color:var(--teal);
+  letter-spacing:-.02em;margin:8px 0}
+.tmr.run{color:var(--amber)}
+.scaf{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+  margin-bottom:7px}
+.scaf b{display:block;font-family:var(--serif);font-size:16px;line-height:1.35}
+.scaf i{display:block;font-style:normal;font-size:13px;color:var(--fg-soft);margin-top:3px}
+.scaf button{float:right;color:var(--teal);font-size:15px;margin-left:8px}
+
+/* ---------- bosluq doldurma ---------- */
+.cloze{background:var(--paper);color:var(--on-paper);border-radius:var(--r);padding:28px 20px;
+  text-align:center;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.cloze b{font-family:var(--serif);font-size:21px;line-height:1.55;font-weight:400}
+.gap{display:inline-block;min-width:76px;border-bottom:2.5px solid var(--teal-deep);
+  color:var(--teal-deep);font-weight:700}
+.cloze i{display:block;font-style:normal;font-size:13px;color:var(--on-paper-soft);margin-top:16px}
+.cloze i::before{content:"ipucu · ";letter-spacing:.1em;text-transform:uppercase;font-size:10px}
+
+/* ---------- qrammatika ---------- */
+.lvl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--teal);
+  border:1px solid var(--teal-deep);border-radius:5px;padding:2px 6px;flex:0 0 auto}
+.les{display:flex;align-items:center;gap:11px;width:100%;padding:14px;border-radius:12px;
+  background:var(--ink-2);border:1px solid var(--line);margin-bottom:8px;text-align:left}
+.les:active{background:var(--ink-3)}
+.les n{font-family:var(--mono);font-size:12px;color:var(--fg-soft);flex:0 0 22px;font-style:normal}
+.les span{flex:1;font-size:15px;font-weight:600;line-height:1.3}
+.les em{font-style:normal;font-size:11px;color:var(--fg-soft);font-family:var(--mono)}
+.les.read{border-color:var(--teal-deep)}
+.les.read n{color:var(--teal)}
+.gh{font-family:var(--serif);font-size:19px;font-weight:700;margin:26px 0 10px;
+  padding-bottom:7px;border-bottom:1px solid var(--line)}
+.gh:first-child{margin-top:0}
+.gp{font-size:15px;line-height:1.65;margin:0 0 13px}
+.gf{font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--ink-2);
+  border-left:3px solid var(--teal);border-radius:0 9px 9px 0;padding:11px 14px;margin:0 0 9px;
+  -webkit-user-select:text;user-select:text;overflow-x:auto;white-space:pre-wrap}
+.ge{background:var(--paper);border-radius:11px;padding:12px 14px;margin:0 0 8px}
+.ge b{display:block;font-family:var(--serif);font-size:16px;color:var(--on-paper);line-height:1.4}
+.ge i{display:block;font-style:normal;font-size:14px;color:var(--on-paper-soft);margin-top:4px}
+.ge button{float:right;color:var(--teal-deep);font-size:15px;margin:-2px 0 0 8px}
+.gx{display:flex;flex-direction:column;gap:5px;background:var(--ink-2);border-radius:11px;
+  padding:11px 13px;margin:0 0 8px;font-size:14px;line-height:1.4}
+.gx u{text-decoration:none;color:var(--rose)}
+.gx v{color:var(--moss)}
+.gx u::before{content:"✗  ";font-family:var(--mono)}
+.gx v::before{content:"✓  ";font-family:var(--mono)}
+.gw{font-size:14px;line-height:1.6;background:rgba(221,145,48,.12);
+  border:1px solid rgba(221,145,48,.35);border-radius:11px;padding:12px 14px;margin:0 0 12px}
+.gw::before{content:"Diqqət";display:block;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--amber);margin-bottom:5px}
+.qz{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:15px;margin-bottom:10px}
+.qz p{margin:0 0 11px;font-size:15px;font-weight:600;line-height:1.4}
+.qo{display:block;width:100%;padding:11px 13px;border-radius:9px;background:var(--ink-3);
+  color:var(--fg);font-size:14px;text-align:left;margin-bottom:6px;line-height:1.35}
+.qo.ok{background:rgba(79,184,110,.18);color:var(--moss)}
+.qo.no{background:rgba(232,85,106,.18);color:var(--rose)}
+.qz p.qw{font-size:13px;font-weight:400;color:var(--fg-soft);line-height:1.55;margin:9px 0 0}
+
+/* ---------- profil ---------- */
+.prow{display:flex;justify-content:space-between;font-size:14px;margin-bottom:5px}
+.prow s{text-decoration:none;font-family:var(--mono);font-size:12px;color:var(--fg-soft)}
+.pbar{height:5px;background:var(--ink-3);border-radius:3px;overflow:hidden;margin-bottom:13px}
+.pbar>i{display:block;height:100%;background:var(--teal)}
+.hard{display:flex;gap:10px;font-size:14px;padding:9px 0;border-bottom:1px solid var(--ink-3)}
+.hard u{text-decoration:none;font-family:var(--mono);color:var(--rose);font-size:12px}
+.hard em{font-style:normal;color:var(--fg-soft)}
+.heat{display:grid;grid-template-columns:repeat(14,1fr);gap:3px;margin-bottom:8px}
+.heat i{aspect-ratio:1;border-radius:2px;background:var(--ink-3)}
+.heat i.l1{background:rgba(49,176,192,.3)}
+.heat i.l2{background:rgba(49,176,192,.58)}
+.heat i.l3{background:var(--teal)}
+.ach{display:flex;align-items:center;gap:12px;background:var(--ink-2);border:1px solid var(--line);
+  border-radius:12px;padding:12px 14px;margin-bottom:7px;opacity:.42}
+.ach.got{opacity:1;border-color:var(--teal-deep)}
+.ach s{text-decoration:none;font-size:24px;flex:0 0 auto;filter:grayscale(1)}
+.ach.got s{filter:none}
+.ach div{flex:1}
+.ach b{display:block;font-size:14px;font-weight:600}
+.ach i{display:block;font-style:normal;font-size:12px;color:var(--fg-soft);margin-top:2px}
+textarea{width:100%;height:110px;background:var(--ink-2);color:var(--fg);border:1px solid var(--line);
+  border-radius:11px;padding:10px;font-family:var(--mono);font-size:11px;
+  -webkit-user-select:text;user-select:text}
+
+/* ---------- netice ---------- */
+.done{text-align:center;padding:24px 0}
+.done .big{font-family:var(--mono);font-size:44px;font-weight:700;color:var(--teal)}
+.done h3{font-family:var(--serif);font-size:21px;margin:12px 0 6px}
+.done p{color:var(--fg-soft);font-size:14px;margin:0;line-height:1.6}
+.xp{display:inline-block;font-family:var(--mono);font-size:15px;color:var(--violet);
+  background:rgba(155,123,255,.14);border:1px solid rgba(155,123,255,.4);
+  border-radius:20px;padding:6px 16px;margin-top:16px}
+.feed{text-align:center;font-size:15px;font-weight:600;margin:14px 0 10px}
+.note{font-size:12.5px;color:var(--fg-soft);text-align:center;line-height:1.65;margin-top:16px}
+.note.l{text-align:left}
+.empty{text-align:center;color:var(--fg-soft);font-size:14px;padding:40px 20px;line-height:1.6}
+.hit{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+  margin-bottom:8px}
+.hit b{font-family:var(--serif);font-size:17px}
+.hit u{text-decoration:none;font-family:var(--mono);font-size:12px;color:var(--teal);margin-left:8px}
+.hit p{margin:4px 0 0;color:var(--amber);font-size:14px}
+.hit small{color:var(--fg-soft);font-size:11px}
+.mtd{background:var(--ink-2);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;
+  padding:14px 16px;margin-bottom:11px}
+.mtd b{display:block;font-family:var(--serif);font-size:17px;margin-bottom:7px}
+.mtd p{margin:0 0 8px;font-size:14px;line-height:1.6}
+.mtd p:last-child{margin:0}
+.mtd em{font-style:normal;color:var(--amber)}
+#off{display:none;background:var(--amber);color:#1a1206;text-align:center;
+  font-size:12px;font-weight:600;padding:5px}
+#off.on{display:block}
+.toast{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 62px);background:var(--ink-3);
+  border:1px solid var(--teal-deep);color:var(--fg);padding:11px 20px;border-radius:24px;
+  font-size:14px;z-index:99;animation:slideIn .25s ease both;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+@media(min-width:620px){
+  #main{padding-left:calc(50% - 280px);padding-right:calc(50% - 280px)}
+  #foot>div,#tabs{max-width:620px;margin:0 auto;width:100%}
+  .hw{font-size:44px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="bar"><button id="back">‹ Geri</button><h1 id="title"></h1><span id="count"></span></div>
+<div id="off">İnternet yoxdur — yaddaşdan işləyir</div>
+<div id="prog"><i id="progi"></i></div>
+<div id="main"></div>
+<div id="foot"><div id="footin"></div></div>
+<div id="tabs"></div>
+<script>
+"use strict";
+const RAW = `@@DATA@@`;
+const GRAMMAR = @@GRAMMAR@@;
+const MONO = @@MONO@@;
+const DIALOGS = @@DIALOGS@@;
+const SHADOW = @@SHADOW@@;
+@@APP@@
+</script>
+</body>
+</html>

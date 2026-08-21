@@ -1,0 +1,105 @@
+en|az|pos|example|tel
+kernel|nüvə|n|Update the kernel and reboot.|körnıl
+shell|komanda mühiti|n|Open a bash shell.|şel
+command|komanda|n|Run this command as root.|kımand
+directory|qovluq|n|Change to the home directory.|dırektıri
+path|yol|n|Add it to the system path.|pas
+file system|fayl sistemi|n|Mount the file system.|fayl sistım
+mount|qoşmaq|v|Mount the disk at /data.|maunt
+unmount|ayırmaq|v|Unmount before removing it.|anmaunt
+partition|bölmə|n|Create a new partition.|partişın
+volume|həcm / bölmə|n|Extend the logical volume.|volyum
+disk usage|disk istifadəsi|n|Check disk usage first.|disk yusic
+permission|icazə|n|Fix the file permissions.|pörmişın
+owner|sahib|n|Change the owner to root.|ounır
+group|qrup|n|Add the user to the wheel group.|grup
+root|superistifadəçi|n|Do not run it as root.|rut
+privilege|imtiyaz|n|Least privilege is the rule.|privılic
+escalate privileges|imtiyaz artırmaq|phr|Attackers escalate privileges.|eskıleyt privılicız
+package|paket|n|Install the package with dnf.|pekic
+repository|anbar|n|Enable the extra repository.|ripozıtri
+dependency|asılılıq|n|A missing dependency.|dipendınsi
+service|xidmət|n|Restart the service.|sörvis
+daemon|fon prosesi|n|The daemon runs in the background.|dimın
+process|proses|n|Kill the hung process.|prouses
+thread|sap|n|The app uses ten threads.|sred
+job|tapşırıq|n|Schedule a nightly job.|cob
+cron|cədvəl planlayıcısı|n|Add a cron entry.|kron
+script|skript|n|Write a shell script.|skript
+pipe|boru (ötürmə)|n|Pipe the output to grep.|payp
+output|çıxış|n|Redirect the output to a file.|autput
+input|giriş|n|Read input from the file.|input
+variable|dəyişən|n|Set an environment variable.|veeriıbıl
+loop|dövr|n|The loop runs ten times.|lup
+condition|şərt|n|Add a condition to the script.|kındişın
+argument|arqument|n|Pass the file as an argument.|argyumınt
+flag|bayraq / açar|n|Use the verbose flag.|fleg
+verbose|ətraflı|adj|Run it in verbose mode.|vörbous
+silent|səssiz|adj|Run the install in silent mode.|saylınt
+exit code|çıxış kodu|n|Check the exit code.|eksit koud
+stack trace|xəta izi|n|Read the stack trace.|stek treys
+debug|sazlamaq|v|Debug the script step by step.|dibag
+deploy|yerləşdirmək|v|Deploy to production tonight.|diploy
+provision|təchiz etmək|v|Provision three new servers.|prıvijın
+orchestrate|əlaqələndirmək|v|Kubernetes orchestrates containers.|orkıstreyt
+container|konteyner|n|Build a container image.|kınteynır
+image|obraz|n|Pull the latest image.|imic
+registry|reyestr|n|Push it to the registry.|recıstri
+cluster|klaster|n|A three-node cluster.|klastır
+node|qovşaq|n|One node went down.|noud
+pod|pod|n|Restart the pod.|pod
+namespace|ad sahəsi|n|Create a separate namespace.|neymspeys
+replica|nüsxə|n|Run three replicas.|replıkı
+scaling|miqyaslama|n|Horizontal scaling is enabled.|skeylinq
+load balancer|yük balanslaşdırıcı|n|Put a load balancer in front.|loud belınsır
+proxy|vasitəçi|n|Configure the reverse proxy.|proksi
+reverse proxy|əks vasitəçi|n|Nginx acts as a reverse proxy.|rivörs proksi
+pipeline|boru xətti|n|The CI pipeline failed.|payplayn
+build|yığmaq|v|The build takes five minutes.|bild
+commit|təsdiqləmək|v|Commit your changes.|kımit
+branch|budaq|n|Create a feature branch.|branç
+merge|birləşdirmək|v|Merge into main.|mörc
+conflict|ziddiyyət|n|Resolve the merge conflict.|konflikt
+pull request|dəyişiklik sorğusu|n|Open a pull request.|pul rikvest
+rollback|geri qaytarma|n|Trigger a rollback.|roulbek
+version control|versiya nəzarəti|n|Use version control for scripts.|vörjın kıntroul
+repository clone|anbar surəti|n|Clone the repository first.|ripozıtri kloun
+idempotent|təkrar-təhlükəsiz|adj|Ansible tasks should be idempotent.|aydempıtınt
+playbook|ssenari kitabı|n|Run the Ansible playbook.|pleybuk
+inventory|inventar|n|Add the host to the inventory.|invıntri
+role|rol|n|Reuse the common role.|roul
+template|şablon|n|Render the config template.|templıt
+manifest|manifest|n|Apply the YAML manifest.|menıfest
+declarative|deklarativ|adj|A declarative configuration.|dıklerıtiv
+provisioning|təchizat|n|Automated provisioning saves hours.|prıvijıninq
+infrastructure|infrastruktur|n|Infrastructure as code.|infrıstrakçır
+configuration drift|konfiqurasiya sürüşməsi|n|Configuration drift caused the outage.|kınfigyureyşın drift
+baseline|əsas ölçü|n|Compare against the baseline.|beyslayn
+snapshot|anlıq surət|n|Take a snapshot before upgrading.|snepşot
+hypervisor|hipervizor|n|The hypervisor host is ESXi.|hayrpırvayzır
+bare metal|fiziki server|n|Run it on bare metal.|beer metıl
+provision a VM|VM yaratmaq|phr|Provision a VM with 8 GB RAM.|prıvijın ı vi em
+resource limit|resurs həddi|n|Set a resource limit.|risors limit
+quota|kvota|n|The user hit the disk quota.|kvoutı
+throttle|məhdudlaşdırmaq|v|Throttle the request rate.|srotıl
+cache|keş|n|Clear the cache and retry.|keş
+queue|növbə|n|The message queue is full.|kyu
+event|hadisə|n|Log every security event.|ivent
+metric|ölçü göstəricisi|n|Collect CPU metrics.|metrik
+dashboard|idarə paneli|n|Build a Grafana dashboard.|deşbord
+observability|müşahidə imkanı|n|Observability starts with good logs.|ıbzörvıbiliti
+tracing|izləmə|n|Distributed tracing helps a lot.|treysinq
+health check|sağlamlıq yoxlaması|n|Add a health check endpoint.|hels çek
+failover|ehtiyata keçid|n|Test the failover once a year.|feylouvır
+redundancy|ehtiyatlılıq|n|Build in redundancy.|ridandınsi
+high availability|yüksək əlçatanlıq|n|We need high availability.|hay ıveylıbiliti
+disaster recovery|fəlakətdən bərpa|n|Our disaster recovery plan is annual.|dizastır rikavıri
+hardening|möhkəmləndirmə|n|Server hardening is mandatory.|hardıninq
+least privilege|minimum imtiyaz|n|Apply least privilege everywhere.|list privılic
+key pair|açar cütü|n|Generate a new key pair.|ki peer
+fingerprint|barmaq izi|n|Verify the host fingerprint.|finqırprint
+handshake|əl sıxma|n|The TLS handshake failed.|hendşeyk
+cipher|şifrə alqoritmi|n|Disable weak ciphers.|sayfır
+hash|heş|n|Compare the SHA-256 hash.|heş
+salt|duz (heş üçün)|n|Always salt the password hash.|solt
+sandbox|təcrid mühiti|n|Run it in a sandbox.|sendboks

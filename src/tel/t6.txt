@@ -1,0 +1,82 @@
+turn on|törn on
+turn off|törn of
+set up|set ap
+log in|log in
+log out|log aut
+back up|bek ap
+shut down|şat daun
+find out|faynd aut
+figure out|figır aut
+work out|vörk aut
+carry out|keri aut
+point out|poynt aut
+give up|giv ap
+look for|luk for
+look into|luk intu
+look after|luk aftır
+take care of|teyk keer ov
+deal with|dil vid
+come up with|kam ap vid
+run out of|ran aut ov
+end up|end ap
+put off|put of
+call off|kol of
+bring up|brinq ap
+follow up|folou ap
+catch up|keç ap
+go on|gou on
+go through|gou sru
+get in touch|get in taç
+keep up with|kip ap vid
+show up|şou ap
+break down|breyk daun
+sign up|sayn ap
+fill in|fil in
+hand in|hend in
+sort out|sort aut
+check out|çek aut
+find time|faynd taym
+make sure|meyk şuır
+take place|teyk pleys
+take part|teyk part
+pay attention|pey ıtenşın
+make a decision|meyk ı disijın
+make a mistake|meyk ı misteyk
+take a look|teyk ı luk
+take a break|teyk ı breyk
+keep in mind|kip in maynd
+in charge of|in çarc ov
+on time|on taym
+in time|in taym
+as soon as possible|ez sun ez posıbıl
+by the way|bay dı vey
+at the moment|et dı moumınt
+in advance|in ıdvans
+on purpose|on pörpıs
+of course|ov kors
+in fact|in fekt
+for example|for igzampıl
+such as|saç ez
+in other words|in adır vördz
+according to|ıkordinq tu
+due to|dyu tu
+instead of|insted ov
+as well as|ez vel ez
+at least|et list
+at most|et moust
+so far|sou far
+right now|rayt nau
+How are you?|hau ar yu
+Nice to meet you.|nays tu mit yu
+Could you help me?|kud yu help mi
+I would like to...|ay vud layk tu
+Let me check.|let mi çek
+I am not sure.|ay em not şuır
+It depends.|it dipendz
+That makes sense.|det meyks sens
+I agree with you.|ay ıgri vid yu
+Could you repeat that?|kud yu ripit det
+Speak more slowly, please.|spik mor slouli pliz
+What do you mean?|vot du yu min
+Let me know.|let mi nou
+I will get back to you.|ay vil get bek tu yu

@@ -1,0 +1,116 @@
+en|az|pos|example
+good|yaxşı|adj|This is a good idea.
+bad|pis|adj|A bad connection.
+new|yeni|adj|A new server.
+old|köhnə|adj|An old version.
+big|böyük|adj|A big problem.
+small|kiçik|adj|A small bank.
+large|geniş / iri|adj|A large database.
+long|uzun|adj|A long process.
+short|qısa|adj|A short break.
+high|yüksək|adj|High risk.
+low|aşağı|adj|Low priority.
+easy|asan|adj|That was easy.
+hard|çətin|adj|A hard question.
+difficult|çətin|adj|A difficult task.
+simple|sadə|adj|Keep it simple.
+important|vacib|adj|This is important.
+different|fərqli|adj|A different approach.
+same|eyni|adj|The same result.
+right|düzgün|adj|The right answer.
+wrong|səhv|adj|The wrong password.
+true|doğru|adj|Is that true?
+false|yanlış|adj|A false alarm.
+early|erkən|adj|An early meeting.
+late|gec|adj|I am late.
+fast|sürətli|adj|A fast network.
+slow|yavaş|adj|The system is slow.
+quick|cəld|adj|A quick fix.
+strong|güclü|adj|A strong password.
+weak|zəif|adj|A weak signal.
+safe|təhlükəsiz|adj|The data is safe.
+dangerous|təhlükəli|adj|A dangerous setting.
+free|pulsuz / azad|adj|Free of charge.
+busy|məşğul|adj|I am busy today.
+ready|hazır|adj|The report is ready.
+sure|əmin|adj|Are you sure?
+possible|mümkün|adj|Is it possible?
+impossible|qeyri-mümkün|adj|That is impossible.
+necessary|zəruri|adj|It is necessary.
+available|mövcud|adj|The server is available.
+clear|aydın|adj|Is that clear?
+full|dolu|adj|The disk is full.
+empty|boş|adj|An empty folder.
+open|açıq|adj|The port is open.
+closed|bağlı|adj|The office is closed.
+clean|təmiz|adj|A clean install.
+dirty|çirkli|adj|Dirty data.
+expensive|bahalı|adj|Too expensive.
+cheap|ucuz|adj|A cheap solution.
+rich|varlı|adj|A rich country.
+poor|kasıb / zəif|adj|Poor performance.
+happy|xoşbəxt|adj|I am happy with it.
+sad|kədərli|adj|A sad story.
+angry|əsəbi|adj|The client is angry.
+tired|yorğun|adj|I am tired.
+afraid|qorxan|adj|I am afraid of losing data.
+young|gənc|adj|A young team.
+beautiful|gözəl|adj|A beautiful photo.
+ugly|çirkin|adj|An ugly interface.
+hot|isti|adj|Hot weather.
+cold|soyuq|adj|A cold room.
+warm|ilıq|adj|Warm water.
+dry|quru|adj|Keep it dry.
+wet|yaş|adj|The floor is wet.
+heavy|ağır|adj|A heavy load.
+light|yüngül / işıqlı|adj|A light task.
+dark|qaranlıq|adj|A dark room.
+bright|parlaq|adj|A bright screen.
+deep|dərin|adj|A deep analysis.
+wide|geniş|adj|A wide range.
+narrow|dar|adj|A narrow street.
+thick|qalın|adj|A thick cable.
+thin|nazik|adj|A thin layer.
+loud|səsli|adj|A loud noise.
+quiet|sakit|adj|A quiet office.
+famous|məşhur|adj|A famous bank.
+serious|ciddi|adj|A serious issue.
+funny|gülməli|adj|A funny mistake.
+interesting|maraqlı|adj|An interesting project.
+boring|darıxdırıcı|adj|A boring meeting.
+useful|faydalı|adj|A useful tool.
+useless|faydasız|adj|A useless report.
+correct|düzgün|adj|The correct value.
+complete|tam|adj|A complete backup.
+main|əsas|adj|The main problem.
+common|ümumi / adi|adj|A common error.
+special|xüsusi|adj|A special case.
+public|ictimai|adj|A public IP.
+private|şəxsi|adj|A private key.
+local|yerli|adj|A local network.
+national|milli|adj|The national bank.
+international|beynəlxalq|adj|International transfer.
+real|real|adj|In real time.
+final|son|adj|The final version.
+current|cari|adj|The current version.
+recent|son zamanlar|adj|A recent update.
+regular|müntəzəm|adj|Regular backups.
+several|bir neçə|adj|Several users complained.
+enough|kifayət|adj|We have enough time.
+almost|demək olar ki|adv|Almost done.
+together|birlikdə|adv|We work together.
+alone|tək|adv|I work alone.
+quickly|tez|adv|Answer quickly.
+slowly|yavaş-yavaş|adv|Speak slowly.
+carefully|diqqətlə|adv|Read it carefully.
+easily|asanlıqla|adv|You can fix it easily.
+probably|çox güman|adv|It is probably a cache issue.
+certainly|mütləq|adv|I will certainly check.
+exactly|dəqiq|adv|Exactly ten items.
+suddenly|qəflətən|adv|It suddenly stopped.
+finally|nəhayət|adv|Finally, it works.
+especially|xüsusilə|adv|Especially at night.
+however|lakin|adv|However, the risk is high.
+instead|əvəzinə|adv|Use SSH instead.
+therefore|buna görə|adv|Therefore we blocked it.
+actually|əslində|adv|Actually, it is fine.

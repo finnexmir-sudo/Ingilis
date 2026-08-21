@@ -1,0 +1,125 @@
+en|az|pos|example
+network|şəbəkə|n|The network is down.
+server|server|n|The server needs a reboot.
+firewall|təhlükəsizlik divarı|n|Add a firewall rule.
+router|marşrutlaşdırıcı|n|Reboot the router.
+switch|kommutator|n|The switch has 48 ports.
+port|port|n|Port 443 is open.
+gateway|şlüz|n|The default gateway is unreachable.
+subnet|alt şəbəkə|n|A separate subnet for guests.
+bandwidth|ötürmə qabiliyyəti|n|We need more bandwidth.
+latency|gecikmə|n|High latency on the link.
+outage|kəsinti|n|A two-hour outage.
+downtime|dayanma müddəti|n|Minimize downtime.
+uptime|işləmə müddəti|n|Uptime is 99.9 percent.
+backup|ehtiyat nüsxə|n|Restore from backup.
+restore|bərpa etmək|v|Restore the database.
+database|verilənlər bazası|n|Query the database.
+query|sorğu|n|The query takes ten seconds.
+table|cədvəl|n|Join two tables.
+record|qeyd|n|Two million records.
+row|sətir|n|Delete this row.
+column|sütun|n|Add a new column.
+index|indeks|n|Create an index on that column.
+schema|sxem|n|The schema changed.
+log|jurnal|n|Check the system logs.
+audit|audit|n|An internal audit.
+compliance|uyğunluq|n|Regulatory compliance.
+regulation|tənzimləmə|n|A new regulation.
+requirement|tələb|n|A mandatory requirement.
+policy|siyasət / qayda|n|The password policy.
+procedure|prosedur|n|Follow the procedure.
+deadline|son tarix|n|The deadline is September 30.
+report|hesabat|n|Submit the monthly report.
+submit|təqdim etmək|v|Submit the form by Friday.
+approve|təsdiqləmək|v|The board approved the budget.
+review|nəzərdən keçirmək|v|Review the code.
+issue|problem / məsələ|n|A known issue.
+incident|hadisə|n|Report the incident.
+risk|risk|n|A high-risk change.
+threat|təhdid|n|An external threat.
+vulnerability|zəiflik|n|A critical vulnerability.
+patch|yamaq|n|Apply the security patch.
+exploit|istismar etmək|v|Attackers exploit old software.
+attack|hücum|n|A phishing attack.
+breach|sızma / pozuntu|n|A data breach.
+malware|zərərli proqram|n|The antivirus blocked malware.
+phishing|fişinq|n|Report phishing emails.
+ransomware|fidyə proqramı|n|Ransomware encrypted the files.
+encryption|şifrələmə|n|End-to-end encryption.
+decrypt|şifrəni açmaq|v|Only the key can decrypt it.
+certificate|sertifikat|n|The certificate expired.
+key|açar|n|Store the private key safely.
+token|token|n|The token expires in one hour.
+authentication|autentifikasiya|n|Two-factor authentication.
+authorization|avtorizasiya|n|Authorization failed.
+credential|giriş məlumatı|n|Never share your credentials.
+password|şifrə|n|Change your password.
+account|hesab|n|Lock the account.
+user|istifadəçi|n|Add a new user.
+permission|icazə|n|Check file permissions.
+access|giriş|n|Grant read access.
+grant|vermək (icazə)|v|Grant access to the folder.
+revoke|ləğv etmək|v|Revoke his access.
+deny|rədd etmək|v|Deny all other traffic.
+allow|icazə vermək|v|Allow HTTPS only.
+monitor|izləmək|v|Monitor the traffic.
+alert|xəbərdarlıq|n|Send an alert to Telegram.
+threshold|hədd|n|The CPU threshold is 80 percent.
+performance|məhsuldarlıq|n|Poor performance.
+load|yük|n|The server load is high.
+storage|yaddaş|n|We are running out of storage.
+disk|disk|n|The disk is full.
+memory|operativ yaddaş|n|Not enough memory.
+CPU|prosessor|n|CPU usage is 95 percent.
+virtual machine|virtual maşın|n|Create a virtual machine.
+cloud|bulud|n|Move it to the cloud.
+deployment|yerləşdirmə|n|A production deployment.
+environment|mühit|n|The test environment.
+production|istehsalat mühiti|n|Don't test in production.
+release|buraxılış|n|The next release is in May.
+version|versiya|n|The latest version.
+update|yeniləmə|n|Install the update.
+upgrade|təkmilləşdirmə|n|A firmware upgrade.
+migration|köçürmə|n|The migration is planned for Sunday.
+integration|inteqrasiya|n|API integration with the central bank.
+endpoint|son nöqtə|n|Call the REST endpoint.
+request|sorğu|n|The request timed out.
+response|cavab|n|An empty response.
+header|başlıq|n|Add the API key header.
+payload|yük məlumatı|n|The payload is JSON.
+timeout|vaxt bitməsi|n|Increase the timeout.
+troubleshoot|nasazlığı aradan qaldırmaq|v|Let's troubleshoot the connection.
+root cause|kök səbəb|n|We found the root cause.
+workaround|müvəqqəti həll|n|A temporary workaround.
+downtime window|texniki fasilə|n|The downtime window is at night.
+rollback|geri qaytarma|n|We had to roll back the change.
+bank|bank|n|I work at a bank.
+branch|filial|n|The Baku branch.
+customer|müştəri|n|A corporate customer.
+client|müştəri|n|The client called.
+account number|hesab nömrəsi|n|Enter your account number.
+balance|balans|n|Check your balance.
+transaction|əməliyyat|n|A suspicious transaction.
+transfer|köçürmə|n|An international transfer.
+payment|ödəniş|n|The payment failed.
+loan|kredit|n|Apply for a loan.
+credit|kredit|n|A credit limit.
+debit|debet|n|A debit card.
+interest rate|faiz dərəcəsi|n|The interest rate went up.
+deposit|əmanət|n|A term deposit.
+withdrawal|çıxarış|n|A cash withdrawal.
+currency|valyuta|n|Foreign currency.
+exchange rate|məzənnə|n|Today's exchange rate.
+invoice|faktura|n|Send me the invoice.
+statement|çıxarış / hesabat|n|A bank statement.
+fee|komissiya|n|A service fee.
+budget|büdcə|n|The IT budget.
+vendor|təchizatçı|n|Contact the vendor.
+contract|müqavilə|n|Sign the contract.
+agreement|razılaşma|n|A service level agreement.
+department|şöbə|n|The IT department.
+manager|menecer|n|My line manager.
+staff|işçi heyəti|n|New staff training.
+meeting|iclas|n|Schedule a meeting.
+training|təlim|n|Security awareness training.
