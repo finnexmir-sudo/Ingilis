@@ -1770,7 +1770,7 @@ const WORDS = RAW.trim().split("\n").map((l, i) => {
    ================================================================== */
 const KEY = "ingilis_v2";
 let mem = null;
-const DEF = {p:{}, cfg:{dn:20, dr:60, ss:20, snd:1, goal:60}, log:[], xp:0,
+const DEF = {p:{}, cfg:{dn:20, dr:60, ss:20, snd:1, goal:60, voice:""}, log:[], xp:0,
              read:[], dlg:[], shd:[], ach:[], day:{d:"", xp:0}};
 /* Xaricden gelen her deyeri tipine ve hedduna gore temizleyir.
    Beleliklə "berpa et" xanasina yapisdirilan zererli metn ise yaramir. */
@@ -1794,7 +1794,8 @@ function sanitize(m){
     dr:   num(c.dr,   5,  500, 60),
     ss:   num(c.ss,   5,  100, 20),
     goal: num(c.goal, 20, 300, 60),
-    snd:  c.snd ? 1 : 0
+    snd:  c.snd ? 1 : 0,
+    voice: (typeof c.voice === "string" && c.voice.length <= 120) ? c.voice : ""
   };
   o.xp  = num(m && m.xp, 0, 99999999, 0);
   o.log = dateArr(m && m.log);
@@ -1976,30 +1977,64 @@ function check(u,c){
    SES
    ================================================================== */
 let voices = [], vA = null, vB = null;
+/* Ses keyfiyyetini bal ile qiymetlendirir: "compact" tipli zeif sesler
+   asagi dusur, "neural/natural/google" tipli tebii sesler yuxari qalxir. */
+function voiceScore(v){
+  const nm = ((v && v.name) || "") + " " + ((v && v.voiceURI) || "");
+  const lg = (v && v.lang) || "";
+  let sc = 0;
+  if (/natural|neural|enhanced|premium|siri/i.test(nm)) sc += 6;
+  if (/google/i.test(nm)) sc += 5;
+  if (/compact|espeak|pico|eloquence/i.test(nm)) sc -= 8;
+  if (/^en[-_]GB/i.test(lg)) sc += 3;
+  else if (/^en[-_]US/i.test(lg)) sc += 2;
+  return sc;
+}
+const sameVoice = (v, id) => !!v && !!id && (v.voiceURI === id || v.name === id);
 function pickVoices(){
   if (!("speechSynthesis" in window)) return;
-  voices = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
-  const gb = voices.filter(v => /^en[-_]GB/i.test(v.lang));
-  const pool = gb.length ? gb : voices;
-  vA = pool[0] || null;
-  vB = pool.find(v => v !== vA) || vA;
+  let list = [];
+  try{ list = speechSynthesis.getVoices() || []; }catch(e){ list = []; }
+  voices = list.filter(v => v && /^en/i.test(v.lang || ""))
+               .map(v => ({v:v, sc:voiceScore(v)}))
+               .sort((a,b) => b.sc - a.sc)
+               .map(x => x.v);
+  const want = cfg("voice");
+  vA = (want ? voices.find(v => sameVoice(v, want)) : null) || voices[0] || null;
+  vB = voices.find(v => v !== vA) || vA;
 }
 if ("speechSynthesis" in window){ pickVoices(); speechSynthesis.onvoiceschanged = pickVoices; }
+let sayT = null;
 function say(t, o){
   o = o || {};
   if (!cfg("snd") || !("speechSynthesis" in window)) { if (o.cb) o.cb(); return; }
   try{
+    if (sayT){ clearTimeout(sayT); sayT = null; }
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(String(t).replace(/\.\.\./g," "));
-    u.lang = "en-GB"; u.rate = o.rate || 0.85; u.pitch = o.pitch || 1;
+    let text = String(t).replace(/\.\.\./g," ").trim();
+    const rate = Math.max(0.5, o.rate || 0.9);
+    /* Yavas rejimde her sozu ayri oxutmaq ucun aralarina vergul qoyulur. */
+    if (rate <= 0.62 && /\s/.test(text)) text = text.split(/\s+/).join(", ");
     const v = o.voice === "b" ? vB : vA;
-    if (v) u.voice = v;
-    if (o.cb) { u.onend = o.cb; u.onerror = o.cb; }
-    speechSynthesis.speak(u);
+    /* cancel() ile speak() arasinda fasile olmasa Android ilk sozu kesir. */
+    sayT = setTimeout(() => {
+      sayT = null;
+      try{
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = (v && v.lang) ? v.lang : "en-GB";
+        u.rate = rate; u.pitch = o.pitch || 1; u.volume = 1;
+        if (v) u.voice = v;
+        if (o.cb) { u.onend = o.cb; u.onerror = o.cb; }
+        speechSynthesis.speak(u);
+      }catch(e){ if (o.cb) o.cb(); }
+    }, 120);
   }catch(e){ if (o.cb) o.cb(); }
 }
 const speak = t => say(t);
-function stopAudio(){ try{ speechSynthesis.cancel(); }catch(e){} }
+function stopAudio(){
+  if (sayT){ clearTimeout(sayT); sayT = null; }
+  try{ speechSynthesis.cancel(); }catch(e){}
+}
 
 /* ==================================================================
    SECIM
@@ -2415,7 +2450,7 @@ function dlgList(){
 function dlgOpen(i){
   const d = DIALOGS[i];
   window._dlgBack = true;
-  ses = {live:false, mode:"dlg", i, at:-1, playing:false, tr:true, rate:0.85};
+  ses = {live:false, mode:"dlg", i, at:-1, playing:false, tr:true, rate:0.9};
   head(d.lv+" · Dialoq", "", null);
   drawDlg();
   $("back").onclick = dlgList;
@@ -2426,8 +2461,8 @@ function drawDlg(){
   render(`
     <div class="gh">${esc(d.t)}</div>
     <div class="spd">
-      <button onclick="dRate(0.65)" class="${ses.rate===0.65?"on":""}">Yavaş</button>
-      <button onclick="dRate(0.85)" class="${ses.rate===0.85?"on":""}">Orta</button>
+      <button onclick="dRate(0.55)" class="${ses.rate===0.55?"on":""}">Yavaş</button>
+      <button onclick="dRate(0.9)" class="${ses.rate===0.9?"on":""}">Orta</button>
       <button onclick="dRate(1)" class="${ses.rate===1?"on":""}">Normal</button>
     </div>
     <div class="row" style="margin-top:9px">
@@ -2499,12 +2534,12 @@ function dictStep(){
   dictCard(s.cards[s.i], g=>{ s.tot++; if(g) s.ok++; s.i++; dictStep(); });
 }
 function dictCard(c, cb){
-  let plays = 0, locked = false, rate = 0.8;
+  let plays = 0, locked = false, rate = 0.85;
   const draw = () => render(`
     <div class="sh"><b>🎧</b><i>Cümləni dinlə və eşitdiyini yaz</i></div>
     <div class="spd" style="margin-top:14px">
-      <button onclick="DR(0.6)" class="${rate===0.6?"on":""}">Yavaş</button>
-      <button onclick="DR(0.8)" class="${rate===0.8?"on":""}">Orta</button>
+      <button onclick="DR(0.55)" class="${rate===0.55?"on":""}">Yavaş</button>
+      <button onclick="DR(0.85)" class="${rate===0.85?"on":""}">Orta</button>
       <button onclick="DR(1)" class="${rate===1?"on":""}">Normal</button>
     </div>
     <button class="play pulse" onclick="DP()">▶  Dinlə</button>
@@ -2555,13 +2590,13 @@ function shadowList(){
 }
 function shOpen(i){
   ses = {live:true, mode:"shadow", pack:i, cards:SHADOW[i].l.map(l=>({en:l[0], az:l[1]})),
-         i:0, rate:0.75, reps:0, tr:true};
+         i:0, rate:0.8, reps:0, tr:true};
   shadowStep();
 }
 function startShadow(){
   const p = shuffle(sentencePool()).slice(0,20);
   if (!p.length) return alert("Cümlə tapılmadı.");
-  ses = {live:true, mode:"shadow", pack:null, cards:p, i:0, rate:0.75, reps:0, tr:true};
+  ses = {live:true, mode:"shadow", pack:null, cards:p, i:0, rate:0.8, reps:0, tr:true};
   shadowStep();
 }
 function shadowStep(){
@@ -2582,8 +2617,8 @@ function shadowStep(){
   render(`
     <div class="sh${long?" long":""}"><b>${esc(c.en)}</b>${s.tr?`<i>${esc(c.az)}</i>`:""}</div>
     <div class="spd">
-      <button id="r0" class="${s.rate===0.6?"on":""}" onclick="SR(0.6)">Yavaş</button>
-      <button id="r1" class="${s.rate===0.75?"on":""}" onclick="SR(0.75)">Orta</button>
+      <button id="r0" class="${s.rate===0.55?"on":""}" onclick="SR(0.55)">Yavaş</button>
+      <button id="r1" class="${s.rate===0.8?"on":""}" onclick="SR(0.8)">Orta</button>
       <button id="r2" class="${s.rate===1?"on":""}" onclick="SR(1)">Normal</button>
     </div>
     <button class="play" onclick="SP()">🔊  Dinlə və eyni anda təkrarla</button>
@@ -2596,7 +2631,7 @@ function shadowStep(){
     `<button class="btn go" onclick="SN()">Növbəti cümlə</button>`);
   setTimeout(SP, 320);
 }
-function SR(r){ ses.rate=r; ["r0","r1","r2"].forEach((id,k)=>{ if($(id)) $(id).className=([0.6,0.75,1][k]===r?"on":""); }); SP(); }
+function SR(r){ ses.rate=r; ["r0","r1","r2"].forEach((id,k)=>{ if($(id)) $(id).className=([0.55,0.8,1][k]===r?"on":""); }); SP(); }
 function ST(){ ses.tr=!ses.tr; shadowRedraw(); }
 function shadowRedraw(){ const r=ses.reps; shadowStep(); ses.reps=r; }
 function SP(){
@@ -2812,6 +2847,7 @@ function scrMe(){
       <button class="btn" onclick="setGoal()"><u><s>🎯</s>Gündəlik hədəf</u><i>${cfg("goal")} XP</i></button>
       <button class="btn" onclick="setDaily()"><u><s>✨</s>Gündə yeni söz</u><i>${cfg("dn")}</i></button>
       <button class="btn" onclick="toggleSound()"><u><s>${cfg("snd")?"🔊":"🔇"}</s>Səs</u><i>${cfg("snd")?"açıq":"bağlı"}</i></button>
+      <button class="btn" onclick="voiceScreen()"><u><s>🗣️</s>Səs seçimi</u><i>${vA?esc(vA.name.slice(0,18)):"yoxdur"}</i></button>
       <button class="btn" onclick="methodScreen()"><u><s>💡</s>Metodika</u><i></i></button>
     </div>
 
@@ -2848,6 +2884,31 @@ function setDaily(){
   const v = parseInt(prompt("Gündə neçə yeni söz? (5-100)", cfg("dn")),10);
   if (v>=5 && v<=100){ S.cfg.dn=v; save(); }
   scrMe();
+}
+/* ---------- ses secimi ---------- */
+const VOICE_DEMO = "This is how I sound. Listen carefully and repeat after me.";
+function voiceScreen(){
+  pickVoices();
+  head("Səs seçimi", voices.length ? voices.length+" səs" : "", null);
+  let h = '<p class="note l" style="margin:0 0 14px">Sətrə toxun — həmin səs seçiləcək və ' +
+          'nümunə cümlə səslənəcək. Seçim yadda saxlanılır.</p>';
+  if (!voices.length){
+    h += '<div class="gw">Telefonunda ingilis dili səsi tapılmadı. Ayarlar → Dil və giriş → ' +
+         'Mətnin səsləndirilməsi bölməsindən English (UK) səs paketini endir.</div>';
+  } else {
+    h += voices.map((v,k)=>`<button class="les${v===vA?" read":""}" onclick="VPick(${k})">
+      <n>${v===vA?"✓":""}</n><span>${esc(v.name)}</span><em>${esc(v.lang)}</em></button>`).join("");
+  }
+  render(h, null, true);
+}
+function VPick(k){
+  const v = voices[k];
+  if (!v) return;
+  S.cfg.voice = String(v.voiceURI || v.name).slice(0, 120);
+  save();
+  pickVoices();
+  voiceScreen();
+  say(VOICE_DEMO);
 }
 function toggleSound(){ S.cfg.snd = cfg("snd")?0:1; save(); if(cfg("snd")) speak("Sound on"); scrMe(); }
 function restore(){
