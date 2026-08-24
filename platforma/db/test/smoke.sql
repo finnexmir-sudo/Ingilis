@@ -21,11 +21,20 @@ insert into auth.users (id, email) values
   ('33333333-3333-3333-3333-333333333333','repetitor@test.az'),
   ('44444444-4444-4444-4444-444444444444','valideyn@test.az');
 
-insert into public.profiles (id, full_name) values
-  ('11111111-1111-1111-1111-111111111111','Muellim A'),
-  ('22222222-2222-2222-2222-222222222222','Muellim B'),
-  ('33333333-3333-3333-3333-333333333333','Repetitor R'),
-  ('44444444-4444-4444-4444-444444444444','Valideyn V');
+-- Profiller trg_auth_user_created trigger-i ile artiq yaranib; adi yaziriq.
+update public.profiles set full_name = v.nm from (values
+  ('11111111-1111-1111-1111-111111111111'::uuid,'Muellim A'),
+  ('22222222-2222-2222-2222-222222222222'::uuid,'Muellim B'),
+  ('33333333-3333-3333-3333-333333333333'::uuid,'Repetitor R'),
+  ('44444444-4444-4444-4444-444444444444'::uuid,'Valideyn V')) as v(id,nm)
+ where profiles.id = v.id;
+
+do $$
+declare n int;
+begin
+  select count(*) into n from public.profiles;
+  assert n = 4, format('Trigger 4 profil yaratmali idi: %s', n);
+end $$;
 
 insert into public.user_roles values
   ('11111111-1111-1111-1111-111111111111','teacher'),

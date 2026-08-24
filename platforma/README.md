@@ -76,6 +76,38 @@ sətir kifayətdir.
 `provider_ref`, `raw` (şlüzün tam cavabı). Ödəniş yazmaq yalnız
 `service_role` ilə mümkündür — webhook-dan.
 
+## Müəllim / repetitor paneli
+
+`muellim/` — statik səhifə, xarici kitabxana yoxdur (CDN yüklənmir).
+
+| Fayl | Nə edir |
+|---|---|
+| `index.html` | karkas |
+| `app.css` | açıq tema, 44px toxunma sahələri |
+| `sb.js` | Supabase üçün yüngül müraciət qatı — qeydiyyat, giriş, token yeniləmə, select, rpc |
+| `app.js` | panel məntiqi |
+| `config.js` | **doldurulmalıdır** — SUPABASE_URL, SUPABASE_ANON_KEY, STUDENT_URL |
+
+Axın: qeydiyyat → hesab tipi (repetitor / məktəb) → qrup → şagird → giriş kodu →
+WhatsApp ilə göndər.
+
+Giriş kodları və qoşulma kodları **serverdə** yaradılır (`app.gen_login_code`),
+qarışdırılan simvollar yoxdur (`0/O`, `1/I/L` iştirak etmir). Yer limiti
+paneldə deyil, bazada tətbiq olunur — panel yalnız xətanı göstərir.
+
+## Yoxlama — uçdan-uca
+
+```bash
+./test/run_e2e.sh
+```
+
+Təmiz baza qurur, `test/mock_supabase.py` ilə Supabase-in kiçik təqlidini
+qaldırır və Chromium-da paneli sürür: qeydiyyat, hesab, qrup, şagird,
+WhatsApp linki, kopyalama, paket limiti, kod yeniləmə, çıxış/giriş,
+başqa müəllimin təcridi, yanlış parol — 33 yoxlama.
+
+`test/mock_supabase.py` **yalnız yoxlama üçündür**, istehsalata getmir.
+
 ## Hələ edilməyənlər
 
 - Giriş kodunun brute-force müdafiəsi — Edge Function səviyyəsində rate limit lazımdır

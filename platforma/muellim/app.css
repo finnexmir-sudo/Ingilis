@@ -1,0 +1,102 @@
+:root{
+  --bg:#f6f7f9; --card:#ffffff; --line:#e3e6eb; --line-2:#eef0f4;
+  --fg:#161a20; --fg-soft:#697386; --fg-mute:#96a0b2;
+  --accent:#1f6f5c; --accent-soft:#e6f2ef; --accent-deep:#155444;
+  --amber:#a86a12; --amber-soft:#fdf3e2;
+  --rose:#b4304a; --rose-soft:#fceef1;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:21px;margin:0 0 4px;letter-spacing:-.01em}
+h2{font-size:16px;margin:26px 0 10px;letter-spacing:-.01em}
+p.note{color:var(--fg-soft);font-size:13.5px;margin:0 0 14px}
+a{color:var(--accent-deep)}
+
+/* ---------- ustluk ---------- */
+.top{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card);
+  border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top b{flex:1;font-size:15px;letter-spacing:-.01em}
+.top .who{font-size:13px;color:var(--fg-soft)}
+
+/* ---------- kart ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;margin-bottom:12px}
+.card.pad0{padding:0;overflow:hidden}
+
+/* ---------- duymeler ---------- */
+button{font:inherit;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--fg);font-weight:600;font-size:14.5px}
+.btn:hover{background:var(--line-2)}
+.btn.go{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.go:hover{background:var(--accent-deep)}
+.btn.sm{min-height:34px;padding:0 11px;font-size:13px;font-weight:500}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--fg-soft)}
+.btn.ghost:hover{background:var(--line-2);color:var(--fg)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- form ---------- */
+label{display:block;font-size:13px;font-weight:600;color:var(--fg-soft);margin:0 0 5px}
+input,select{width:100%;min-height:44px;padding:0 12px;border:1px solid var(--line);
+  border-radius:10px;background:var(--card);color:var(--fg);font:inherit;margin-bottom:12px}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.fieldrow{display:flex;gap:10px}
+.fieldrow>div{flex:1}
+
+/* ---------- yer gostericisi ---------- */
+.seat{display:flex;align-items:baseline;gap:8px;margin:0 0 8px}
+.seat b{font-size:22px;letter-spacing:-.02em}
+.seat i{font-style:normal;color:var(--fg-soft);font-size:13px}
+.bar{height:7px;border-radius:4px;background:var(--line-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.bar.warn i{background:var(--amber)}
+.bar.full i{background:var(--rose)}
+
+/* ---------- siyahi ---------- */
+.item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line-2);
+  background:none;border-left:0;border-right:0;border-top:0;width:100%;text-align:left}
+.item:last-child{border-bottom:0}
+.item:hover{background:var(--line-2)}
+.item .g{flex:1;min-width:0}
+.item .g b{display:block;font-size:14.5px;font-weight:600}
+.item .g i{display:block;font-style:normal;font-size:12.5px;color:var(--fg-soft);margin-top:2px}
+.item .arrow{color:var(--fg-mute)}
+
+/* ---------- kod ---------- */
+.code{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:.09em;
+  background:var(--accent-soft);color:var(--accent-deep);
+  padding:5px 9px;border-radius:7px;display:inline-block}
+.code.sm{font-size:13px;padding:3px 7px}
+
+/* ---------- sagird setri ---------- */
+.stu{padding:13px 16px;border-bottom:1px solid var(--line-2)}
+.stu:last-child{border-bottom:0}
+.stu .l1{display:flex;align-items:center;gap:10px}
+.stu .l1 b{flex:1;font-size:14.5px}
+.stu .l2{display:flex;align-items:center;gap:8px;margin-top:9px;flex-wrap:wrap}
+
+/* ---------- xeberdarliq ---------- */
+.warn,.err,.ok{border-radius:10px;padding:12px 14px;margin:0 0 14px;font-size:13.5px;line-height:1.55}
+.warn{background:var(--amber-soft);border:1px solid #f0dcb8;color:#6b4409}
+.err {background:var(--rose-soft); border:1px solid #f2ccd5;color:#7d1f33}
+.ok  {background:var(--accent-soft);border:1px solid #c9e3db;color:var(--accent-deep)}
+
+/* ---------- bos hal ---------- */
+.empty{text-align:center;padding:32px 16px;color:var(--fg-soft);font-size:14px}
+.empty s{display:block;text-decoration:none;font-size:30px;margin-bottom:8px;opacity:.55}
+
+.muted{color:var(--fg-soft);font-size:12.5px}
+.spacer{height:10px}
+.hide{display:none}
+
+@media (max-width:520px){
+  .fieldrow{display:block}
+  .wrap{padding:16px 12px 60px}
+}
