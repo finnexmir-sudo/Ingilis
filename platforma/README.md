@@ -16,12 +16,19 @@ Bu qovluq **yeni məhsulun** baza təməlidir. İngilis Dili tətbiqinə heç bi
 
 ## Supabase-də qurmaq
 
-SQL Editor-da **bu sıra ilə**: `01` → `02` → `03` → `04` → `05`.
+SQL Editor-da: `01` → `02` → `03` → `06` → `04` → `05`.
+
 `test/` qovluğundakı fayllar Supabase-də **işlədilmir** — onlar `auth` sxemini
 təqlid edir, Supabase-də isə o artıq var.
 
-Yeni miqrasiyadan sonra `05_grants.sql` **yenidən** işlədilməlidir: Supabase
-hər yeni cədvələ avtomatik olaraq `anon`/`authenticated` hüququ verir.
+**Qayda sadədir: `05_grants.sql` cədvəl yaradan hər fayldan sonra işlədilməlidir.**
+Supabase hər yeni cədvələ avtomatik olaraq `anon`/`authenticated` hüququ verir,
+`05` isə onu geri alır. `06` cədvəl yaratmadığına görə onu `05`-dən sonra
+işlətmək də təhlükəsizdir — sınanıb.
+
+Qurulduqdan sonra `db/test/verify.sql` faylını SQL Editor-a yapışdırıb işlədin:
+heç nə dəyişmir, yalnız 7 sətirlik hesabat verir — cədvəl sayı, RLS, siyasətlər,
+RPC-lər, triggerlər, seed və `anon`-a açıq qalan həssas cədvəl varmı.
 
 ## Lokal yoxlama
 
